@@ -1,0 +1,13 @@
+Frontend
+// starting page
+will have a play online button 
+and a play with robot buttn
+
+// if clicked on online button
+it will direct to another page 
+    /random
+here websocket server connection will take place
+and initialization of the game event will be sent to server
+will need to setup a on event for when the game has started
+and replace chess pieces with text for now and allow them to move 
+see if chess.js can come in front end 

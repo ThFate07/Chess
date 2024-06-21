@@ -7,7 +7,6 @@ import { Dashboard } from "./Components/Dashboard"
 import { Game } from "./Components/Game";
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
     <>

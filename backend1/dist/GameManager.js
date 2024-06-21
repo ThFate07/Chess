@@ -20,6 +20,8 @@ class GameManager {
     addHandler(socket) {
         socket.on("message", (data) => {
             const message = JSON.parse(data.toString());
+            console.log(message);
+            console.log("message received: ", message.type);
             if (message.type === messages_1.INIT_GAME && this.pendingUser) {
                 // start a game
                 const game = new Game_1.Game(this.pendingUser, socket);
@@ -32,7 +34,7 @@ class GameManager {
             if (message.type === messages_1.MOVE) {
                 const game = this.games.find(game => game.player1 === socket || game.player2 === socket);
                 if (game) {
-                    game.makeMove(socket, message.move);
+                    game.makeMove(socket, message.payload);
                 }
             }
         });

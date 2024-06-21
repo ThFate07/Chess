@@ -13,52 +13,56 @@ class Game {
         this.player1.send(JSON.stringify({
             type: messages_1.INIT_GAME,
             payload: {
-                color: "white"
-            }
+                color: "white",
+            },
         }));
         this.player2.send(JSON.stringify({
             type: messages_1.INIT_GAME,
             payload: {
-                color: "black"
-            }
+                color: "black",
+            },
         }));
     }
     makeMove(socket, move) {
         // validate move
-        if (this.board.moves.length % 2 === 0 && socket != this.player1) {
+        if (this.moves.length % 2 === 0 && socket != this.player1) {
             return;
         }
-        if (this.board.moves.length % 2 === 1 && socket != this.player2) {
+        if (this.moves.length % 2 === 1 && socket != this.player2) {
             return;
         }
         try {
             this.board.move(move);
         }
-        catch (e) {
-        }
+        catch (e) { }
         if (this.board.isGameOver()) {
             this.player1.emit(JSON.stringify({
                 type: messages_1.GAME_OVER,
-                payload: move
+                payload: move,
             }));
             this.player2.emit(JSON.stringify({
                 type: messages_1.GAME_OVER,
-                payload: move
+                payload: move,
             }));
             return;
         }
-        if (this.board.moves.length % 2 === 0) {
+        console.log(this.moves.length, this.moves.length % 2);
+        if (this.moves.length % 2 === 0) {
+            console.log("sending move to black");
             this.player2.send(JSON.stringify({
                 type: messages_1.MOVE,
-                paylaod: move
+                payload: move,
             }));
         }
         else {
+            console.log("sending move to white");
             this.player1.send(JSON.stringify({
                 type: messages_1.MOVE,
-                paylaod: move
+                payload: move,
             }));
         }
+        // adding the move
+        this.moves.push(move);
     }
 }
 exports.Game = Game;
